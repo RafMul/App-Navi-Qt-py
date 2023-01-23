@@ -3,6 +3,7 @@
 """
 @author: rafal
 """
+'''Create new finction for camera'''
 
 def ccv(self):
       print ("run")
