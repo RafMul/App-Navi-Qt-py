@@ -6,8 +6,11 @@ Created on Mon Nov 22 20:11:08 2021
 @author: rafal
 """
 
-import mysql.connector
+import mysql
 from mysql.connector import errorcode
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(message)s')
 #from login1 import Ui_Login
 #from apiUI import Login
 '''
@@ -52,18 +55,20 @@ def writeDataOn_Console(self):
         mycursor = self.mydb.cursor()
         mycursor.execute(sql_select_Query)
         result = mycursor.fetchall()
-        print ("Total number of rows in table ", mycursor)
-        print("\nPronting each row")
+        logging.info("\nTotal number of rows in table {0:1d}", mycursor)
+        logging.info("\nPronting each row")
+
 
         for x in result:
             print(x)
 
 def takeDataFromLineEdit_password(self):
         
-        user =  1
+        user =1
         password = 2
         if (user == ('123')) or (password ==('1234')):
-            print ('Login_successful')
+            logging.info("Login successfull")
+
             self.close()
         elif len(user)==0 or len(password)==0:
             self.log.errorpassword.setText("Please input all fields.")
@@ -83,20 +88,24 @@ def takeDataFromDatabase_password(self, user , password1):
         coursor.execute(sql_question)
         self.answer = coursor.fetchone()
         #print(len(answer))
-        print(self.answer)
+        logging.info("{0:1d}", self.answer)
+
         if( self.answer != None):
             dataFromDatabases = []
             for row in self.answer:
-                print(row)
+                logging.info("{0:1d}", row)
+
                 dataFromDatabases.append(row)
             log = dataFromDatabases[0]
             pa  = dataFromDatabases[1]
             if (log == username or pa == password):
+                logging.info("log is ok ")
             
-                print('log is ok')
+
                 return 1
             else:
-                print ('sorry some one is wrong')
+                logging.info("Sorry some one is wrong")
+
                 return 0 
         else:
             return 0
@@ -105,7 +114,7 @@ def takeDataFromDatabase_password(self, user , password1):
 
 '''
 """
-
+logging.info("Currently selected index - {0:1d}", self.onTheTopIndex)
         
 
                           SELECT PASSWORD_apiUI.password, LOGIN_apiUI.login 
